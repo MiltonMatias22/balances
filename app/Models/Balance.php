@@ -21,4 +21,21 @@ class Balance extends Model
 
         return $am ? $am : 0;
     }
+
+    public function deposit(float $vl) : Array
+    {
+        $this->amount += number_format($vl, 2, '.', ',');
+
+        if ($this->save()) {
+           return [
+               'success' => true,
+               'message' => 'Deposit successful'
+           ];
+        }
+
+        return [
+            'success' => false,
+            'message' => 'Deposit failed'
+        ];
+    }
 }

@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="value">Value:</label>
                             <input type="decimal" class="form-control" id="value"
-                                name="amount" placeholder="$000.00">
+                                name="value" placeholder="$000.00">
                         </div>
                     </div>    
                     <div class="box-footer">
