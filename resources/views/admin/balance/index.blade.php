@@ -30,7 +30,7 @@
                 </div>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <a href="#" class="btn btn-primary">Add cash 
+                        <a href="{{ route('balance.deposit') }}" class="btn btn-primary">Add cash 
                             <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
                         </a>
                     </div>
