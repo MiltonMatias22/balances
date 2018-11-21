@@ -11,10 +11,11 @@
 |
 */
 
-Route::middleware(['auth'])->namespace('Admin')->group(
+Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(
     function ()
     {
-        Route::get('admin', 'AdminController@index')->name('admin');
+        Route::get('/', 'AdminController@index')->name('admin');
+        Route::get('balance', 'BalanceController@index')->name('balance');
         
     }
 );

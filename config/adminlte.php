@@ -110,10 +110,27 @@ return [
     'menu' => [
         'MAIN NAVIGATION',
         [
-            'text'        => 'HOME',
+            'text'        => 'Dashboard',
             'url'         => 'admin',
-            'icon'        => 'home',
-        ],        
+            'icon'        => 'dashboard',
+        ],
+        [
+            'text'        => 'Financial',
+            'icon'        => 'money',
+            'submenu'     =>
+            [
+                [
+                    'text'    => 'Balance',
+                    'url'     => 'admin/balance',
+                    'icon'    => 'usd'
+                ],
+                [
+                    'text'    => 'Historic',
+                    'url'     => 'admin/historic',
+                    'icon'    => 'history'
+                ]
+            ]
+        ]
     ],
 
     /*
