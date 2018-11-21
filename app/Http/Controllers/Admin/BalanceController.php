@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\Balance;
 class BalanceController extends Controller
 {
     public function index()
     {
-        return view('admin.balance.index');
+        $amount = Balance::amount();
+
+        return view('admin.balance.index', compact('amount'));
     }
 }
