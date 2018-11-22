@@ -24,9 +24,20 @@ class Balance extends Model
 
     public function deposit(float $vl) : Array
     {
-        $this->amount += number_format($vl, 2, '.', ',');
+        $totalBefore = $this->amount ? $this->amount : 0;
 
-        if ($this->save()) {
+        $this->amount += number_format($vl, 2, '.', ',');
+        $dep = $this->save();
+
+        $hist = auth()->user()->historics()->create([
+            'type'          => 'I',
+            'amount'        => $vl,
+            'total_before'  =>$totalBefore,
+            'total_after'   => $this->amount,
+            'date'          => date('Ymd'),
+        ]);
+
+        if ($dep && $hist) {
            return [
                'success' => true,
                'message' => 'Deposit successful'

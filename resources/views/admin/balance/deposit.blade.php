@@ -27,7 +27,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="value">Value:</label>
-                            <input type="decimal" class="form-control" id="value"
+                            <input type="number" class="form-control" id="value"
                                 name="value" placeholder="$000.00">
                         </div>
                     </div>    
