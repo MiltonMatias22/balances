@@ -16,7 +16,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-body">
-            <div class="col-lg-4 col-xs-6">
+            <div class="col-lg-6 col-xs-12">
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
@@ -38,6 +38,14 @@
                         @if($amount > 0)
                             <a href="{{ route('balance.withdraw') }}" class="btn btn-danger">Cash out 
                                 <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+                            </a>
+                        @endif
+                    </div>
+                    <div class="btn-group" role="group">
+                        @if($amount > 0)
+                            <a href="{{ route('balance.transfer') }}" class="btn btn-info">
+                                Transfer 
+                                <i class="fa fa-exchange" aria-hidden="true"></i>
                             </a>
                         @endif
                     </div>
