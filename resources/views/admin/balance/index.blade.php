@@ -35,9 +35,11 @@
                         </a>
                     </div>
                     <div class="btn-group" role="group">
-                        <a href="#" class="btn btn-danger">Cash out 
-                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
-                        </a>
+                        @if($amount > 0)
+                            <a href="{{ route('balance.withdraw') }}" class="btn btn-danger">Cash out 
+                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -60,4 +60,53 @@ class Balance extends Model
 
         }
     }
+
+    public function withdraw(float $vl) : Array
+    {
+        
+        $am = $this->amount;
+        
+        if ($am < $vl || $vl <= 0) {
+            return [
+                'success' => false,
+                'message' => "Current balance: $am  Reported value: $vl"
+            ];
+        }
+
+        DB::beginTransaction();
+
+        $totalBefore = $am ? $am : 0;
+
+        $am -= number_format($vl, 2, '.', ',');
+
+        $dep = $this->save();
+        
+
+        $hist = auth()->user()->historics()->create([
+            'type'          => 'O',
+            'amount'        => $vl,
+            'total_before'  => $totalBefore,
+            'total_after'   => $am,
+            'date'          => date('Ymd'),
+        ]);
+
+        if ($dep && $hist) {
+            
+            DB::commit();
+           
+            return [
+                'success' => true,
+                'message' => 'Cash out successful'
+            ];
+
+        }else {          
+
+            DB::rollback();
+
+            return [
+                'success' => false,
+                'message' => 'Cash out failed'
+            ];
+        }
+    }
 }

@@ -11,7 +11,7 @@
             <li>
                 <a href="{{route('balance')}}">Balance</a>
             </li>
-            <li class="active">Deposit</li>
+            <li class="active">Cash out</li>
         </ol>
     </nav>
 @stop
@@ -22,11 +22,11 @@
             
             @include('admin.includes.alerts')            
             
-            <div class="box box-success">
+            <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Deposit</h3>
+                    <h3 class="box-title">Cash Out</h3>
                 </div>
-                <form role="form" action="{{ route('deposit.store') }}" method="POST">
+                <form role="form" action="{{ route('withdraw.store') }}" method="POST">
                     <div class="box-body">
                         <div class="form-group {{$errors->any() ? 'has-warning' : ''}}">
                             <label for="value">Value:</label>
@@ -35,8 +35,8 @@
                         </div>
                     </div>    
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-success">Add 
-                            <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+                        <button type="submit" class="btn btn-danger">Cash out 
+                            <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
                         </button>
                         {!! csrf_field() !!}
                     </div>

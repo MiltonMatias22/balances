@@ -18,6 +18,8 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(
         Route::get('balance', 'BalanceController@index')->name('balance');
         Route::get('deposit', 'BalanceController@deposit')->name('balance.deposit');
         Route::post('deposit', 'BalanceController@depositStore')->name('deposit.store');
+        Route::get('withdraw', 'BalanceController@withdraw')->name('balance.withdraw');
+        Route::post('withdraw', 'BalanceController@withdrawStore')->name('withdraw.store');
         
     }
 );

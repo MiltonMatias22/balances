@@ -34,4 +34,23 @@ class BalanceController extends Controller
 
         return redirect()->back();
     }
+
+    public function withdraw()
+    {
+        return view('admin.balance.withdraw');
+    }
+
+    public function withdrawStore(MoneyValidationFormRequest $request)
+    {
+        $balance = auth()->user()->balance()->firstOrCreate([]);
+        $response = $balance->withdraw($request->value);
+
+        //messages session
+        \Session::flash('success',[
+            'success' => $response['success'],
+            'message' => $response['message']
+        ]);
+
+        return redirect()->back();
+    }
 }
