@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Balance;
+use App\Http\Requests\MoneyValidationFormRequest;
+
 class BalanceController extends Controller
 {
     public function index()
@@ -19,10 +21,16 @@ class BalanceController extends Controller
         return view('admin.balance.deposit');
     }
 
-    public function depositStore(Request $request)
+    public function depositStore(MoneyValidationFormRequest $request)
     {
         $balance = auth()->user()->balance()->firstOrCreate([]);
-        $balance->deposit($request->value);
+        $response = $balance->deposit($request->value);
+
+        //messages session
+        \Session::flash('success',[
+            'success' => $response['success'],
+            'message' => $response['message']
+        ]);
 
         return redirect()->back();
     }

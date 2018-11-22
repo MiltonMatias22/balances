@@ -19,13 +19,16 @@
 @section('content')
     <div class="row">
         <div class="col-md-4 col-lg-4 col-xs-12">
+            
+            @include('admin.includes.alerts')            
+            
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Deposit</h3>
                 </div>
                 <form role="form" action="{{ route('deposit.store') }}" method="POST">
                     <div class="box-body">
-                        <div class="form-group">
+                        <div class="form-group {{$errors->any() ? 'has-warning' : ''}}">
                             <label for="value">Value:</label>
                             <input type="number" class="form-control" id="value"
                                 name="value" placeholder="$000.00">
