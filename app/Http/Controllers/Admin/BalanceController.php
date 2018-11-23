@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Balance;
 use App\Http\Requests\MoneyValidationFormRequest;
-
+use App\User;
 class BalanceController extends Controller
 {
     public function index()
@@ -59,8 +59,28 @@ class BalanceController extends Controller
         return view('admin.balance.transfer');
     }
 
-    public function confirmTransfer(Request $request)
+    public function confirmTransfer(Request $request, User $user)
+    {        
+        $response = $user->getSender($request->sender);
+        
+        if ($response['success']) {
+            
+            //messages session
+            \Session::flash('success',[
+                'success' => $response['success'],
+                'message' => $response['message'] 
+            ]);
+
+            return redirect()->back();
+        }
+
+        return view('admin.balance.confirm',[
+            'sender' => $response
+            ]);
+    }
+
+    public function transferStore(Request $request)
     {
-        dd($request->all());
+        dd($request);
     }
 }

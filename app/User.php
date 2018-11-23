@@ -39,4 +39,27 @@ class User extends Authenticatable
     {
         return $this->hasMany(Historic::class);
     }
+
+    public function getSender($sender)
+    {
+        $user = $this->where('name','LIKE', "%$sender%")
+                ->orWhere('email',$sender)
+                ->get()
+                ->first();
+
+        if (!$user) {
+            return [
+                'success' => false,
+                'message' => 'Name or E-mal not found!'
+            ];
+        }
+        if ($user->id === auth()->user()->id) {
+            return [
+                'success' => false,
+                'message' => 'You can\'t transfer to yourself'
+            ];
+        }
+
+        return $user;
+    }
 }
