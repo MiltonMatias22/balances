@@ -28,20 +28,22 @@
             
 
             <div class="box box-widget widget-user-2">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-aqua-active">
-                  <div class="widget-user-image">
-                    <img class="img-circle" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="User Avatar">
-                  </div>
-                  <!-- /.widget-user-image -->
-                <h3 class="widget-user-username">{{$sender->name}}</h3>
-                  <h5 class="widget-user-desc">{{$sender->email}}</h5>
-                </div>
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-aqua-active">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="User Avatar">
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <p class="widget-user-desc">Transfer to:</p>
+                        <h3 class="widget-user-username">{{$sender->name}}</h3>
+                        <h5 class="widget-user-desc">{{$sender->email}}</h5>
+                    </div>
               </div> 
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Confirm Transfer</h3>
+                    <h3 class="box-title">Transfer</h3>
+                    <h5>My current Balance: {{$my_current_balance}}</h5>
                 </div>
                 <form role="form" action="{{ route('transfer.store') }}" method="POST">
                     <div class="box-body">

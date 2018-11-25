@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 class Balance extends Model
 {
+    protected $fillable = ['amount'];
+
     public $timestamps = false;
     
-    public function getAmountAttribute()
+    public function getAmountAttribute($value)
     {
-        $am =  $this->attributes['amount'];
-        
-        return number_format($am, 2, '.', ',');
+        return  number_format($value, 2, '.', ',');
     }
 
     public static function amount()
     {
-        $am = auth()->user()->balance->amount;
+        $am = auth()->user()->balance;
 
-        return $am ? $am : 0;
+        return $am ? $am->amount : 0;
     }
 
     public function deposit(float $vl) : Array
@@ -40,7 +40,7 @@ class Balance extends Model
             'date'          => date('Ymd'),
         ]);
 
-        if ($dep && $hist) {
+        if ($dep && $hist->wasRecentlyCreated) {
             
             DB::commit();
            
@@ -65,7 +65,7 @@ class Balance extends Model
     {
         
         $am = $this->amount;
-        
+
         if ($am < $vl || $vl <= 0) {
             return [
                 'success' => false,
@@ -77,21 +77,20 @@ class Balance extends Model
 
         $totalBefore = $am ? $am : 0;
 
-        $am -= number_format($vl, 2, '.', ',');
-
-        $dep = $this->save();
+        $this->amount -= number_format($vl, 2, '.', ',');
         
+        $dep = $this->save();
 
         $hist = auth()->user()->historics()->create([
             'type'          => 'O',
             'amount'        => $vl,
             'total_before'  => $totalBefore,
-            'total_after'   => $am,
+            'total_after'   => $this->amount,
             'date'          => date('Ymd'),
         ]);
+        
+        if ($dep && $hist->wasRecentlyCreated) {
 
-        if ($dep && $hist) {
-            
             DB::commit();
            
             return [

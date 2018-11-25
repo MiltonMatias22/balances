@@ -12,7 +12,7 @@ class BalanceController extends Controller
     public function index()
     {
         $amount = Balance::amount();
-
+        
         return view('admin.balance.index', compact('amount'));
     }
 
@@ -24,7 +24,8 @@ class BalanceController extends Controller
     public function depositStore(MoneyValidationFormRequest $request)
     {
         $balance = auth()->user()->balance()->firstOrCreate([]);
-        $response = $balance->deposit($request->value);
+        
+        $response = $balance->find($balance->id)->deposit($request->value);
 
         //messages session
         \Session::flash('success',[
@@ -74,8 +75,11 @@ class BalanceController extends Controller
             return redirect()->back();
         }
 
+        $my_current_balance = Balance::amount();
+
         return view('admin.balance.confirm',[
-            'sender' => $response
+            'sender' => $response,
+            'my_current_balance' => $my_current_balance 
             ]);
     }
 
