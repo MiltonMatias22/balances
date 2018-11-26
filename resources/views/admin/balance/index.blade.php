@@ -17,6 +17,9 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="col-lg-6 col-xs-12">
+
+                @include('admin.includes.alerts')
+
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">

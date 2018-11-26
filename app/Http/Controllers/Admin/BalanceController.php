@@ -25,7 +25,7 @@ class BalanceController extends Controller
     {
         $balance = auth()->user()->balance()->firstOrCreate([]);
         
-        $response = $balance->find($balance->id)->deposit($request->value);
+        $response = $balance->deposit($request->value);
 
         //messages session
         \Session::flash('success',[
@@ -83,8 +83,23 @@ class BalanceController extends Controller
             ]);
     }
 
-    public function transferStore(Request $request)
+    public function transferStore(MoneyValidationFormRequest $request)
     {
-        dd($request);
+        $balance = auth()->user()->balance()->firstOrCreate([]);
+                
+        $response = $balance->confirm($request->value, $request->sender_id);
+               
+        //messages session
+        \Session::flash('success',[
+            'success' => $response['success'],
+            'message' => $response['message']
+        ]);
+
+        if ($response['success']) {
+
+            return redirect()->route('balance');
+        }
+
+        return redirect()->back();
     }
 }
