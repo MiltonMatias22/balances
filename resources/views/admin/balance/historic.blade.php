@@ -88,7 +88,12 @@
                 </div>
                 <div class="box-footer clearfix">
                     <!-- paginate -->
-                    {{$historic}}
+                    @if (isset($data))
+                        <!-- pagination with search -->
+                        {{$historic->appends($data)}}
+                    @else
+                        {{$historic}}
+                    @endif
                 </div>              
             </div>
             <!-- /.box -->

@@ -12,7 +12,7 @@ use App\Models\Historic;
 class BalanceController extends Controller
 {
 
-    private $perPage = 5;
+    private $perPage = 2;
 
     public function index()
     {
@@ -117,10 +117,12 @@ class BalanceController extends Controller
 
     public function historicSearch(Request $request, Historic $historic)
     {
-        $data = $request->all();
+        // takes all fields except the token, to laravel not put
+        // put them on url during the pagination process with search
+        $data = $request->except('_token');
         
         $historic = $historic->search($data, $this->perPage);
         
-        return view('admin.balance.historic', compact('historic'));
+        return view('admin.balance.historic', compact('historic','data'));
     }
 }
