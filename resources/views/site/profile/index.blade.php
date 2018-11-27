@@ -19,6 +19,9 @@
                     </div>
                 </div>
                 <div class="col-md-8">
+
+                    @include('admin.includes.alerts')
+                    
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Update</h4>
