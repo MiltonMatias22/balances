@@ -25,7 +25,7 @@
                     <div class="box-tools">
                         <form action="{{route('historic.search')}}" method="POST" class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input type="text" name="id" class="form-control" placeholder="By id...">
+                                <input type="number" name="id" class="form-control" placeholder="By id...">
                             </div>
                             <div class="input-group input-group-sm">
                                 <input type="date" name="date" class="form-control">
