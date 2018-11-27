@@ -102,4 +102,11 @@ class BalanceController extends Controller
 
         return redirect()->back();
     }
+
+    public function historic()
+    {
+        $historic = auth()->user()->historics()->with(['userSender'])->paginate(5);
+        
+        return view('admin.balance.historic', compact('historic'));
+    }
 }

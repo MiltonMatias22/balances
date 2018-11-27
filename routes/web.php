@@ -23,6 +23,7 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(
         Route::get('transfer', 'BalanceController@transfer')->name('balance.transfer');
         Route::post('confirm-transfer', 'BalanceController@confirmTransfer')->name('confirm.transfer');
         Route::post('transfer', 'BalanceController@transferStore')->name('transfer.store');
+        Route::get('historic', 'BalanceController@historic')->name('admin.historic');
         
     }
 );
