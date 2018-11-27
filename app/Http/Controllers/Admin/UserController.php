@@ -11,4 +11,9 @@ class UserController extends Controller
     {
         return view('site.profile.index');
     }
+
+    public function updateProfile(Request $request)
+    {
+        dd($request);
+    }
 }
