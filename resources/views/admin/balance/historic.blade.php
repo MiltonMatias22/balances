@@ -16,12 +16,37 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="box">
+            <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">My Historic</h3>
+                    <h3 class="box-title">Historic</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="box-tools">
+                        <form action="{{route('historic.search')}}" method="POST" class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="id" class="form-control" placeholder="By id...">
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <input type="date" name="date" class="form-control">
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <select class="form-control" name="type">
+                                    <option selected disabled>Type transaction</option>
+                                    <option value="I">Deposit</option>
+                                    <option value="O">withdraw</option>
+                                    <option value="T">Transfer</option>
+                                </select>                                   
+                            </div>
+                            <div class="btn-group btn-group-sm">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-search"></i> Filter
+                                </button>
+                            </div>
+                            {{csrf_field()}}
+                        </form>
+                    </div>
+                    <hr>
                     <table class="table table-hover">
                         <thead>
                             <tr>
