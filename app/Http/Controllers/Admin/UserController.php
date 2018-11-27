@@ -14,6 +14,8 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $user = auth()->user();
+
         $data = $request->all();
 
         if($data['password'] != null)
@@ -22,7 +24,33 @@ class UserController extends Controller
             unset($data['password']);
         }
 
-        $result = auth()->user()->update($data);
+        $data['img_path'] = $user->img_path;
+
+        if ($request->hasFile('img_path') &&
+            $request->file('img_path')->isValid()) {
+
+            if ($user->img_path) {
+                $img_name = $user->img_path;
+            }else {
+                $img_name = $user->id.kebab_case($user->name);
+            }
+
+            $img_extension = $request->img_path->extension();
+
+            $img_fileName = "{$img_name}.{$img_extension}";
+            
+            $data['img_path'] = $img_fileName;
+
+            $img_upload = $request->img_path
+                ->storeAs('users-img', $img_fileName);
+
+            if (!$img_upload) {
+                $this->session(false, "image upload failed");
+                return redirect()->back();
+            }
+        }
+
+        $result = $user->update($data);
                 
         if ($result) {
             $this->session($result, "Update successful");

@@ -25,7 +25,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Update</h4>
-                            <form class="form-row" id="update" action="{{route('update.profile')}}" method="POST">
+                            <form class="form-row" id="update" action="{{route('update.profile')}}"
+                                method="POST" enctype="multipart/form-data">
                                 <div class="form-group col-5">
                                     <label for="name">Name:</label>
                                     <input type="text" class="form-control" name="name" id="name"
