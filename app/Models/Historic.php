@@ -62,6 +62,11 @@ class Historic extends Model
         return Carbon::parse($value)->format('Y/m/d');
     }
 
+    public function scopeUserAuth($query)
+    {
+        return $query->where('user_id', '=', auth()->user()->id);
+    }
+
     public function search(Array $data, $perPage)
     {
         
@@ -75,6 +80,9 @@ class Historic extends Model
             if (isset($data['date'])) {
                 $query->where('date', '=', $data['date']);
             }
-        })->paginate($perPage);
+        })
+        ->userAuth()
+        ->with(['userSender'])
+        ->paginate($perPage);
     }
 }
