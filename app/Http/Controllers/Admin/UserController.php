@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProfileFormRequest;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller
@@ -12,7 +13,7 @@ class UserController extends Controller
         return view('site.profile.index');
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(UpdateProfileFormRequest $request)
     {
         $user = auth()->user();
 

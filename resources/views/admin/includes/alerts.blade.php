@@ -4,9 +4,9 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    {{$errors->any() ? 'warning!' : ''}}
                     @foreach ($errors->all() as $error)
-                        Warning!
-                        <p><small>{{$error}}</small></p>
+                    <br/><small>{{$error}}</small>*
                     @endforeach
                     {{Session::get('success')['message']}}
                 </div>
