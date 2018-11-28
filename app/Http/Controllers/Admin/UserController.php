@@ -30,9 +30,13 @@ class UserController extends Controller
             $request->file('img_path')->isValid()) {
 
             if ($user->img_path) {
-                $img_name = $user->img_path;
+                // if img_path exist, create img name again
+                $img_name = $user->id.'-'.kebab_case($user->name);
+                // remove old img from directory
+                unlink(storage_path('app/public/img-users/'.$user->img_path));                
             }else {
-                $img_name = $user->id.kebab_case($user->name);
+                // create img name
+                $img_name = $user->id.'-'.kebab_case($user->name);
             }
 
             $img_extension = $request->img_path->extension();
@@ -40,9 +44,9 @@ class UserController extends Controller
             $img_fileName = "{$img_name}.{$img_extension}";
             
             $data['img_path'] = $img_fileName;
-
+            
             $img_upload = $request->img_path
-                ->storeAs('users-img', $img_fileName);
+                ->storeAs('public/img-users', $img_fileName);
 
             if (!$img_upload) {
                 $this->session(false, "image upload failed");

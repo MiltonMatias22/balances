@@ -8,8 +8,16 @@
         <div class="card-body">
             <div class="row mt-4">
                 <div class="col-md-4">
-                    <img class="mx-auto d-block rounded-circle img-thumbnail shadow-sm mt-3" style="width: 10rem;"
-                        src="https://via.placeholder.com/150" alt="Card image cap">
+                    @if (auth()->user()->img_path != null)
+                        <img class="mx-auto d-block rounded-circle img-thumbnail shadow-sm mt-3"
+                            style="width: 10rem; height: 10rem;"
+                            src="{{asset('storage/img-users/'.auth()->user()->img_path)}}"
+                            alt="{{auth()->user()->img_path}}">
+                    @else
+                        <img class="mx-auto d-block rounded-circle img-thumbnail shadow-sm mt-3"
+                            style="width: 10rem;" src="https://via.placeholder.com/150"
+                            alt="Card image cap">
+                    @endif
                     <div class="text-center mt-3">
                         <h6>{{auth()->user()->name}}</h6>
                         <p><small>E-mail: {{auth()->user()->email}}</small></p>
